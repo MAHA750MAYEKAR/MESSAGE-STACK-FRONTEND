@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import { Button } from "@/components/ui/button"
 
-import './App.css'
+import './App.css';
+
+import { Button } from '@/components/ui/button';
 
 function App() {
    return (
@@ -11,7 +11,7 @@ function App() {
     </div>
   
     </>
-  )
+  );
 }
 
-export default App
+export default App;
