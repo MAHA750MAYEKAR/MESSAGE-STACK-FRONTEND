@@ -8,6 +8,7 @@ import {
    CardHeader,
    CardTitle,
 } from '@/components/ui/card';
+import { RiArrowGoBackFill } from "react-icons/ri";
 
 
 export const NotFound = () => {
@@ -28,9 +29,12 @@ export const NotFound = () => {
                   <Button
                      className="w-full hover:bg-red-600 rounded-lg  mt-7 shadow-xl"                    
                      variant="destructive"
-                     onClick={()=>navigate(-1)}
-                                      >
+                     onClick={() => navigate(-1)}
+                     
+                  >
+                     <RiArrowGoBackFill />
                      Go Back
+                     
                   </Button>
                
                   
