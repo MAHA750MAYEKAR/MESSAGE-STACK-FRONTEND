@@ -11,6 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { CgDanger } from "react-icons/cg";
 import { FiLoader } from "react-icons/fi";
 import { BiErrorAlt } from "react-icons/bi";
+import {useNavigate } from "react-router-dom";
 
 
 export const SignUpCard = ({
@@ -22,6 +23,8 @@ export const SignUpCard = ({
   error,
   isSuccess,
 }) => {
+
+ const navigate=useNavigate()
   return (
     <>
       <Card>
@@ -103,7 +106,10 @@ export const SignUpCard = ({
           <Separator className="my-5" />
           <p className="text-s text-muted-foreground mt-4">
             Already have an account ?{" "}
-            <span className="text-sky-600 hover:underline cursor-pointer">
+            <span
+              className="text-sky-600 hover:underline cursor-pointer"
+              onClick={() => navigate("/auth/signin")}
+            >
               Sign In
             </span>
           </p>
