@@ -3,6 +3,7 @@ import { NotFound } from '@/pages/NotFound/NotFound';
 import { SignupContainer } from '@/components/organisms/Auth/SignupContainer';
 import { SigninContainer } from '@/components/organisms/Auth/SigninContainer';
 import Auth from '@/pages/auth/Auth';
+import { ProtectedRoute } from './ProtectedRoute';
 
 export const AppRoutes = () => {
   return (
@@ -26,9 +27,11 @@ export const AppRoutes = () => {
       <Route
         path="/home"
         element={
-          <Auth>
-            <h1>Home</h1>
-          </Auth>
+          <ProtectedRoute>
+            <Auth>
+              <h1>Home</h1>
+            </Auth>
+          </ProtectedRoute>
         }
       />
       <Route path="/*" element={<NotFound />} />

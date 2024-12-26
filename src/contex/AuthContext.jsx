@@ -9,6 +9,7 @@ export const AuthContextProvider = ({ children }) => {
   const [auth, setAuth] = useState({
     user: null,
     token: null,
+    isLoading: true,
   });
 
   useEffect(() => {
@@ -20,14 +21,23 @@ export const AuthContextProvider = ({ children }) => {
       setAuth({
         user: JSON.parse(user), //converting string to object
         token,
+        isLoading: false,
+      });
+        console.log("setAuth in auth contex",setAuth);
+        
+    }
+    else {
+      setAuth({
+        user: null,
+        token: null,
+        isLoading: false,
       });
     }
-  }, []);
+  },
+   []);
 
   return (
-    <AuthContext.Provider value={{ token, user }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={{ auth,setAuth }}>{children}</AuthContext.Provider>
   );
 };
 
