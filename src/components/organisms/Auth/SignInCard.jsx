@@ -1,75 +1,95 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
-      Card,
-      CardContent,
-      CardDescription,
-      CardHeader,
-      CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Separator } from '@/components/ui/separator';
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { CgDanger } from "react-icons/cg";
+import { BiErrorAlt } from "react-icons/bi";
+import { FiLoader } from "react-icons/fi";
+export const SignInCard = ({
+  signInForm,
+  setSigninForm,
+  error,
+  isPending,
+  isSuccess,
+  onSubmitSignin,
+  validationError,
+}) => {
+  const navigate = useNavigate();
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Sign In </CardTitle>
+        <CardDescription>Sign In to access your account</CardDescription>
+        {validationError?.message && (
+          <div className="w-full bg-orange-500/50 rounded p-3 flex gap-4 border-spacing-11 shadow-lg">
+            <CgDanger className="mt-0.5 size-5" />
+            <p>{validationError.message}</p>
+          </div>
+        )}
 
+        {error && (
+          <div className="w-full bg-orange-500/50 rounded p-3 flex gap-4 border-spacing-11 shadow-lg">
+            <BiErrorAlt className="mt-0.5 size-6" />
+            <p>{error.message}</p>
+          </div>
+        )}
 
-
-export const SignInCard = () => {
-      const navigate=useNavigate();
-      const [signInForm, setSigninForm] = useState({
-            email: '',
-            password: ''
-      });
-
-      return (
-            <Card>
-                  <CardHeader>
-                        <CardTitle>Sign In </CardTitle>
-                        <CardDescription>Sign In to access your account</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                        <form className="space-y-3">
-                              <Input
-                                    disabled={false}
-                                    placeholder="Email"
-                                    required
-                                    type="email"
-                                    value={signInForm.email}
-                                    onChange={(e) => setSigninForm({ ...signInForm, email: e.target.value })}
-
-                              />
-                              <Input
-                                    disabled={false}
-                                    placeholder="Password"
-                                    required
-                                    type="password"
-                                    value={signInForm.password}
-                                    onChange={(e) => setSigninForm({ ...signInForm, password: e.target.value })}
-
-                              />
-                              <Button className="w-full " disabled={false} size="lg" type="submit">
-                                    Continue
-
-                              </Button>
-
-
-                        </form>
-                        <Separator className="my-5" />
-                        <p
-                              className='text-s text-muted-foreground mt-4'
-                        >
-                              Don't have an account ? {' '}
-                              <span
-                                    className='text-sky-600 hover:underline cursor-pointer'
-                                    onClick={() => navigate('/auth/signup')}
-                              >
-                                    Sign Up
-                              </span>
-                        </p>
-
-                  </CardContent>
-
-            </Card>
-
-      );
+        {isSuccess && (
+          <div className="w-full bg-green-500/50 rounded p-3 flex gap-4 border-spacing-11 shadow-lg">
+            <FiLoader className="mt-0.5 size-10" />
+            <p>
+              Successfully signin. You will be redirected to Home page in few
+              seconds....
+            </p>
+          </div>
+        )}
+      </CardHeader>
+      <CardContent>
+        <form className="space-y-3" onSubmit={onSubmitSignin}>
+          <Input
+            disabled={isPending}
+            placeholder="Email"
+            required
+            type="email"
+            value={signInForm.email}
+            onChange={(e) =>
+              setSigninForm({ ...signInForm, email: e.target.value })
+            }
+          />
+          <Input
+            disabled={isPending}
+            placeholder="Password"
+            required
+            type="password"
+            value={signInForm.password}
+            onChange={(e) =>
+              setSigninForm({ ...signInForm, password: e.target.value })
+            }
+          />
+          <Button className="w-full" disabled={false} size="lg" type="submit">
+            Continue
+          </Button>
+        </form>
+        <Separator className="my-5" />
+        <p className="text-s text-muted-foreground mt-4">
+          Don't have an account ?{" "}
+          <span
+            className="text-sky-600 hover:underline cursor-pointer"
+            onClick={() => navigate("/auth/signup")}
+          >
+            Sign Up
+          </span>
+        </p>
+      </CardContent>
+    </Card>
+  );
 };
