@@ -1,7 +1,7 @@
 import { BiLogOutCircle } from 'react-icons/bi';
 import { FiSettings } from 'react-icons/fi';
 import { VscAccount } from 'react-icons/vsc';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
