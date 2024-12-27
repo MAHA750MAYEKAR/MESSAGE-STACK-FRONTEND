@@ -1,7 +1,7 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation } from '@tanstack/react-query';
 
-import { signUpRequest } from "@/api/auth";
-import { useToast } from "@/hooks/use-toast";
+import { signUpRequest } from '@/api/auth';
+import { useToast } from '@/hooks/use-toast';
 
 export const useSignUp = () => {
   const { toast } = useToast();
@@ -15,20 +15,20 @@ export const useSignUp = () => {
     mutationFn: signUpRequest,
     onSuccess: () => {
       toast({
-        title: "Successfully signed up",
-        message: "You will be redirected to the login page in a few seconds",
-        type: "success",
+        title: 'Successfully signed up',
+        message: 'You will be redirected to the login page in a few seconds',
+        type: 'success',
       });
-      console.log("successfully sign up");
+      console.log('successfully sign up');
     },
     onError: (error) => {
       toast({
-        title: "Failed to sign up",
+        title: 'Failed to sign up',
         message: error.message,
-        type: "error",
-        variant: "destructive",
+        type: 'error',
+        variant: 'destructive',
       });
-      console.log("failed!! to sign up", error);
+      console.log('failed!! to sign up', error);
     },
   });
 

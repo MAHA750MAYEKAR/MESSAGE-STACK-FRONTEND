@@ -1,3 +1,4 @@
+import { RiArrowGoBackFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
@@ -8,7 +9,6 @@ import {
    CardHeader,
    CardTitle,
 } from '@/components/ui/card';
-import { RiArrowGoBackFill } from "react-icons/ri";
 
 
 export const NotFound = () => {

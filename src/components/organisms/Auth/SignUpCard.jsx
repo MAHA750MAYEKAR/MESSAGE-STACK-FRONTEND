@@ -1,17 +1,18 @@
-import { Button } from "@/components/ui/button";
+import { BiErrorAlt } from 'react-icons/bi';
+import { CgDanger } from 'react-icons/cg';
+import { FiLoader } from 'react-icons/fi';
+import {useNavigate } from 'react-router-dom';
+
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { CgDanger } from "react-icons/cg";
-import { FiLoader } from "react-icons/fi";
-import { BiErrorAlt } from "react-icons/bi";
-import {useNavigate } from "react-router-dom";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
 
 
 export const SignUpCard = ({
@@ -24,7 +25,7 @@ export const SignUpCard = ({
   isSuccess,
 }) => {
 
- const navigate=useNavigate()
+ const navigate=useNavigate();
   return (
     <>
       <Card>
@@ -105,10 +106,10 @@ export const SignUpCard = ({
           </form>
           <Separator className="my-5" />
           <p className="text-s text-muted-foreground mt-4">
-            Already have an account ?{" "}
+            Already have an account ?{' '}
             <span
               className="text-sky-600 hover:underline cursor-pointer"
-              onClick={() => navigate("/auth/signin")}
+              onClick={() => navigate('/auth/signin')}
             >
               Sign In
             </span>

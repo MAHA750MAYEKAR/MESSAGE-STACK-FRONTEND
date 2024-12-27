@@ -6,11 +6,11 @@ export default function CombinedProvider (...Providers){//providers is array whi
 
     return ({ children }) => {
         return Providers.reduceRight((accumulator,CurrentProvoder) => {
-            return<CurrentProvoder>{accumulator}</CurrentProvoder>
+            return<CurrentProvoder>{accumulator}</CurrentProvoder>;
             
-        },children)
+        },children);
         
-    }
+    };
 }
 /**
  * <A>

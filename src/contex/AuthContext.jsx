@@ -1,5 +1,5 @@
-import { createContext, useEffect } from "react";
-import { useState } from "react";
+import { createContext, useEffect } from 'react';
+import { useState } from 'react';
 
 const AuthContext = createContext();
 
@@ -14,8 +14,8 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     //get user && token once component load for once for first time
-    const user = localStorage.getItem("user");
-    const token = localStorage.getItem("token");
+    const user = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
     //if both are present thn setAuth
     if (user && token) {
       setAuth({
@@ -23,7 +23,7 @@ export const AuthContextProvider = ({ children }) => {
         token,
         isLoading: false,
       });
-        console.log("setAuth in auth contex",setAuth);
+        console.log('setAuth in auth contex',setAuth);
         
     }
     else {
