@@ -34,10 +34,21 @@ export const AuthContextProvider = ({ children }) => {
       });
     }
   },
-   []);
+    []);
+  
+  async function logOut() {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+
+   setAuth({
+     user: null,
+     token: null,
+     isLoading: false,
+   });
+  }
 
   return (
-    <AuthContext.Provider value={{ auth,setAuth }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ auth,setAuth,logOut }}>{children}</AuthContext.Provider>
   );
 };
 
