@@ -31,8 +31,12 @@ export const CreateWorkspaceModal = () => {
          const workspaceCreated =await createWorkspaceMutation({
            name: workspaceName,
          });
-         console.log('successfully created workspace in modal', workspaceCreated.data);
-         navigate(`/workspaces/${workspaceCreated._id}`);
+        console.log('successfully created workspace in modal', workspaceCreated.data);
+        
+        const Workspace = workspaceCreated.data;
+        console.log('workspace',Workspace);
+        
+         navigate(`/workspaces/${Workspace._id}`);
          
          
       } catch (error) {
