@@ -1,12 +1,13 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
 
-import { SigninContainer } from '@/components/organisms/Auth/SigninContainer';
-import { SignupContainer } from '@/components/organisms/Auth/SignupContainer';
-import Auth from '@/pages/auth/Auth';
-import { Home } from '@/pages/home/Home';
-import { NotFound } from '@/pages/NotFound/NotFound';
+import { SigninContainer } from "@/components/organisms/Auth/SigninContainer";
+import { SignupContainer } from "@/components/organisms/Auth/SignupContainer";
+import Auth from "@/pages/auth/Auth";
+import { Home } from "@/pages/home/Home";
+import { NotFound } from "@/pages/NotFound/NotFound";
+import { Layout } from "@/pages/workspaces/Layout";
 
-import { ProtectedRoute } from './ProtectedRoute';
+import { ProtectedRoute } from "./ProtectedRoute";
 
 export const AppRoutes = () => {
   return (
@@ -31,9 +32,17 @@ export const AppRoutes = () => {
         path="/home"
         element={
           <ProtectedRoute>
-            <Auth>
-              <Home/>
-            </Auth>
+            <Home />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/workspaces/:workspaceId"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <h1>workspace</h1>
+            </Layout>
           </ProtectedRoute>
         }
       />

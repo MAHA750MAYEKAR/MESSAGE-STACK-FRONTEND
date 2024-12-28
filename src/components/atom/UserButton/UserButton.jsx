@@ -1,10 +1,10 @@
-import { BiLogOutCircle } from 'react-icons/bi';
-import { FiSettings } from 'react-icons/fi';
-import { MdCreate } from 'react-icons/md';
-import { VscAccount } from 'react-icons/vsc';
-import { useNavigate } from 'react-router-dom';
+import { BiLogOutCircle } from "react-icons/bi";
+import { FiSettings } from "react-icons/fi";
+import { MdCreate } from "react-icons/md";
+import { VscAccount } from "react-icons/vsc";
+import { useNavigate } from "react-router-dom";
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,30 +12,28 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { useAuth } from '@/hooks/context/useAuth';
-import { useCreateWorkspaceModal } from '@/hooks/context/useCreateWorkspaceModal';
-import { useToast } from '@/hooks/use-toast';
-
+} from "@/components/ui/dropdown-menu";
+import { useAuth } from "@/hooks/context/useAuth";
+import { useCreateWorkspaceModal } from "@/hooks/context/useCreateWorkspaceModal";
+import { useToast } from "@/hooks/use-toast";
 
 export const UserButton = () => {
-    const { auth, logOut } = useAuth();
-    const { toast } = useToast();
-   const navigate = useNavigate();
-   const { setOpenWorkspaceModal } = useCreateWorkspaceModal();
+  const { auth, logOut } = useAuth();
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const { setOpenWorkspaceModal } = useCreateWorkspaceModal();
 
   async function handleLogout() {
-      await logOut();
-      toast({
-        title: 'Successfully signed out',
-        type: 'success',
-      });
-      navigate('/auth/signin');
-   }
-   function openModal() {
-      setOpenWorkspaceModal(true);
-      
-   }
+    await logOut();
+    toast({
+      title: "Successfully signed out",
+      type: "success",
+    });
+    navigate("/auth/signin");
+  }
+  function openModal() {
+    setOpenWorkspaceModal(true);
+  }
 
   return (
     <DropdownMenu>
