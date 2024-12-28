@@ -1,7 +1,7 @@
 import axios from '@/config/axiosConfig';
 export const createWorkspacerequest = async ({ name, description,token }) => {
   try {
-    const response = axios.post(
+    const response =await axios.post(
       '/api/v1/workspaces',
       { name, description },
       {
@@ -10,12 +10,12 @@ export const createWorkspacerequest = async ({ name, description,token }) => {
         },
       }
     );
-    console.log('response created in create workspace', response.data);
+    console.log('response created in create workspace', response);
 
     return response.data;
   } catch (error) {
-    console.log('Error in creating Workspace', error);
-    throw error.response;
+    console.log('Error in creating Workspace',error.response.data.message);
+    throw error.response.data.message;
   }
 };
 
@@ -29,7 +29,9 @@ export const fetchWorkspaceRequest = async({token}) => {
         });
 
         console.log('successfully fetched all the workspces user in memmber', response);
-        return response?.data;
+        console.log('response.data', response.data);
+          console.log('response.data.data', response.data.data);
+        return response?.data?.data;
         
         
     } catch (error) {

@@ -1,5 +1,6 @@
 import { BiLogOutCircle } from 'react-icons/bi';
 import { FiSettings } from 'react-icons/fi';
+import { MdCreate } from 'react-icons/md';
 import { VscAccount } from 'react-icons/vsc';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,13 +14,15 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/hooks/context/useAuth';
+import { useCreateWorkspaceModal } from '@/hooks/context/useCreateWorkspaceModal';
 import { useToast } from '@/hooks/use-toast';
 
 
 export const UserButton = () => {
     const { auth, logOut } = useAuth();
     const { toast } = useToast();
-    const navigate=useNavigate();
+   const navigate = useNavigate();
+   const { setOpenWorkspaceModal } = useCreateWorkspaceModal();
 
   async function handleLogout() {
       await logOut();
@@ -28,7 +31,11 @@ export const UserButton = () => {
         type: 'success',
       });
       navigate('/auth/signin');
-  }
+   }
+   function openModal() {
+      setOpenWorkspaceModal(true);
+      
+   }
 
   return (
     <DropdownMenu>
@@ -48,6 +55,10 @@ export const UserButton = () => {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={openModal}>
+          <MdCreate className="size-4 mr-2 h-10" />
+          Create New Workspace
+        </DropdownMenuItem>
         <DropdownMenuItem>
           <FiSettings className="size-4 mr-2 h-10" />
           Settings
