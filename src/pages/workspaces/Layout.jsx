@@ -1,5 +1,5 @@
-import { WorkspaceSidebar } from '@/components/organisms/Auth/workspace/WorkspaceSidebar';
 import { WorkspaceNavbar } from '@/components/organisms/Auth/workspace/WorkspaceNavbar';
+import { WorkspaceSidebar } from '@/components/organisms/Auth/workspace/WorkspaceSidebar';
 
 export const Layout = ({ children }) => {
    return (

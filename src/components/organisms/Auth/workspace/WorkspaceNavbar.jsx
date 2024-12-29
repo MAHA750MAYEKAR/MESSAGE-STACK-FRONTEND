@@ -1,8 +1,9 @@
-import { useParams } from 'react-router-dom'
-import { useFetchWorkspaceById } from '@/hooks/workspace/useFetchWorkspaceById';
-import { Button } from '@/components/ui/button'
 import { InfoIcon } from 'lucide-react';
 import { Search } from 'lucide-react';
+import { useParams } from 'react-router-dom';
+
+import { Button } from '@/components/ui/button';
+import { useFetchWorkspaceById } from '@/hooks/workspace/useFetchWorkspaceById';
 
 export const WorkspaceNavbar = () => {
    
@@ -15,7 +16,7 @@ export const WorkspaceNavbar = () => {
         </div>
       );
    }
-   console.log("workspace in navbar",workspace);
+   console.log('workspace in navbar',workspace);
    
 
    return (
@@ -43,4 +44,4 @@ export const WorkspaceNavbar = () => {
    );
 
 
-}
+};

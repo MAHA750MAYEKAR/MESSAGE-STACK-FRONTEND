@@ -1,10 +1,10 @@
-import { BiLogOutCircle } from "react-icons/bi";
-import { FiSettings } from "react-icons/fi";
-import { MdCreate } from "react-icons/md";
-import { VscAccount } from "react-icons/vsc";
-import { useNavigate } from "react-router-dom";
+import { BiLogOutCircle } from 'react-icons/bi';
+import { FiSettings } from 'react-icons/fi';
+import { MdCreate } from 'react-icons/md';
+import { VscAccount } from 'react-icons/vsc';
+import { useNavigate } from 'react-router-dom';
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,10 +12,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useAuth } from "@/hooks/context/useAuth";
-import { useCreateWorkspaceModal } from "@/hooks/context/useCreateWorkspaceModal";
-import { useToast } from "@/hooks/use-toast";
+} from '@/components/ui/dropdown-menu';
+import { useAuth } from '@/hooks/context/useAuth';
+import { useCreateWorkspaceModal } from '@/hooks/context/useCreateWorkspaceModal';
+import { useToast } from '@/hooks/use-toast';
 
 export const UserButton = () => {
   const { auth, logOut } = useAuth();
@@ -26,10 +26,10 @@ export const UserButton = () => {
   async function handleLogout() {
     await logOut();
     toast({
-      title: "Successfully signed out",
-      type: "success",
+      title: 'Successfully signed out',
+      type: 'success',
     });
-    navigate("/auth/signin");
+    navigate('/auth/signin');
   }
   function openModal() {
     setOpenWorkspaceModal(true);
@@ -38,7 +38,7 @@ export const UserButton = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Avatar>
+        <Avatar className="size-14 hover:scale-110 transition-transform duration-300 ease-in-out shadow-2xl bg-pink-800/95 border border-spacing-2">
           <AvatarImage src={auth?.user?.avatar} />
           <AvatarFallback>
             {auth?.user?.username[0].toUpperCase()}
