@@ -42,17 +42,17 @@ export const fetchWorkspaceRequest = async({token}) => {
 
 export const fetchWorkspaceByIdRequest =async ({workspaceId,token}) => {
   try {
-    const response = await axios.get(`/workspaces/${workspaceId}`, {
+    const response = await axios.get(`/api/v1/workspaces/${workspaceId}`, {
       headers: {
       'x-access-token':token
     } });
-    console.log('succsess in fetching workspace by id', response);
+    console.log('succsess in fetching workspace by id', response?.data?.data);
     
-    return response;
+    return  response?.data?.data;
     
     
   } catch (error) {
-    console.log('failed!! error in fetching workspace by Id');
+    console.log('failed!! error in fetching workspace by Id',error);
     throw error;
     
     
