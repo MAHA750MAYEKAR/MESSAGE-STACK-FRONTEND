@@ -1,4 +1,5 @@
 import { WorkspaceNavbar } from '@/components/organisms/Auth/workspace/WorkspaceNavbar';
+import { WorkspacePanel } from '@/components/organisms/Auth/workspace/WorkspacePanel';
 import { WorkspaceSidebar } from '@/components/organisms/Auth/workspace/WorkspaceSidebar';
 import {
   ResizableHandle,
@@ -23,7 +24,7 @@ export const Layout = ({ children }) => {
                defaultSize={20}
                className="bg-slate-300/85"
              >
-               One
+              <WorkspacePanel/>
              </ResizablePanel>
 
              <ResizableHandle withHandle />

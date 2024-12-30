@@ -13,7 +13,7 @@ export const useFetchWorkspace = () => {
         queryKey: ['fetchWorkspaces'],
         staleTime: 30000
     });
-    console.log('workspaces in useq',workspaces);
+    //console.log('workspaces in useq',workspaces);
     
 
     return {
