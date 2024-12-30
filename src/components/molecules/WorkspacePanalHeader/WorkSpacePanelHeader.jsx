@@ -17,7 +17,7 @@ import { usePreferencesModal } from "@/hooks/context/usePreferencesModal";
 export const WorkspacePanelHeader = ({ workspace }) => {
   const { auth } = useAuth();
   //console.log("workspace in panel header",workspace);
-  const { setOpenPreferences } = usePreferencesModal();
+  const { setOpenPreferences, setInitialValue } = usePreferencesModal();
   const isUserAdminOfWorkspace = workspace.members.find(
     (member) => member.memberId === auth?.user?._id && member.role === "admin"
   );
@@ -53,7 +53,10 @@ export const WorkspacePanelHeader = ({ workspace }) => {
             <>
               <DropdownMenuItem
                 className="w-full"
-                onClick={() => setOpenPreferences(true)}
+                onClick={() => {
+                  setOpenPreferences(true);
+                  setInitialValue(workspace?.name)
+                }}
               >
                 Preferences
               </DropdownMenuItem>
