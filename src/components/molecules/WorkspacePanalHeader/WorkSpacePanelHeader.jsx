@@ -1,4 +1,5 @@
 import { ListFilterIcon, SquarePenIcon } from "lucide-react";
+import { useEffect } from "react";
 import { FaChevronDown } from "react-icons/fa";
 
 import { Button } from "@/components/ui/button";
@@ -11,15 +12,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/context/useAuth";
+import { usePreferencesModal } from "@/hooks/context/usePreferencesModal";
 
 export const WorkspacePanelHeader = ({ workspace }) => {
   const { auth } = useAuth();
   //console.log("workspace in panel header",workspace);
-
+  const { setOpenPreferences } = usePreferencesModal();
   const isUserAdminOfWorkspace = workspace.members.find(
     (member) => member.memberId === auth?.user?._id && member.role === "admin"
   );
-
   return (
     <div className="w-full flex  items-center  bg-slate-400  hover:bg-slate-400/80 gap-5 justify-between">
       <div></div>
@@ -50,7 +51,10 @@ export const WorkspacePanelHeader = ({ workspace }) => {
 
           {isUserAdminOfWorkspace && (
             <>
-              <DropdownMenuItem className="w-full">
+              <DropdownMenuItem
+                className="w-full"
+                onClick={() => setOpenPreferences(true)}
+              >
                 Preferences
               </DropdownMenuItem>
               <DropdownMenuItem className="w-full">
