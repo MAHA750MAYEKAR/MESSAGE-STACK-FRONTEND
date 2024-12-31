@@ -12,15 +12,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/context/useAuth";
-import { usePreferencesModal } from "@/hooks/context/usePreferencesModal";
+import { usePreferencesModal } from "@/hooks/context/usePreferencesModal"
+
 
 export const WorkspacePanelHeader = ({ workspace }) => {
   const { auth } = useAuth();
   //console.log("workspace in panel header",workspace);
+  const {setWorkspace}=usePreferencesModal()
   const { setOpenPreferences, setInitialValue } = usePreferencesModal();
   const isUserAdminOfWorkspace = workspace.members.find(
     (member) => member.memberId === auth?.user?._id && member.role === "admin"
   );
+
+  useEffect(() => {
+  setWorkspace(workspace)//
+},[])
+
   return (
     <div className="w-full flex  items-center  bg-slate-400  hover:bg-slate-400/80 gap-5 justify-between">
       <div></div>

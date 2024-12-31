@@ -17,7 +17,7 @@ export const WorkspaceSwitcher = () => {
    const { workspaceId } = useParams();
    const { isFetching, workspace } = useFetchWorkspaceById(workspaceId);
    const { isFetching: isFetchingWorkspce, workspaces } = useFetchWorkspace();
-   console.log('map workspaces',workspaces);
+   //console.log('map workspaces',workspaces);
    
 
 

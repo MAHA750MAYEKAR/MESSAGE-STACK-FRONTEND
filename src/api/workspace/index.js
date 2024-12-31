@@ -1,5 +1,4 @@
 import axios from "@/config/axiosConfig";
-import { log } from "console";
 export const createWorkspacerequest = async ({ name, description, token }) => {
   try {
     const response = await axios.post(
@@ -59,7 +58,7 @@ export const fetchWorkspaceByIdRequest = async ({ workspaceId, token }) => {
 
 export const deleteWorkspaceByIdRequest = async ({ workspaceId, token }) => {
   try {
-    const deletedWorkspace = axios.delete(`/api/v1/workspaces/${workspaceId}`, {
+    const deletedWorkspace = await axios.delete(`/api/v1/workspaces/${workspaceId}`, {
       headers: {
         "x-access-token": token,
       },
@@ -69,14 +68,14 @@ export const deleteWorkspaceByIdRequest = async ({ workspaceId, token }) => {
     console.log("response of deleted workspace==>", deletedWorkspace?.data);
     return deletedWorkspace?.data;
   } catch (error) {
-    console.log("error in deleting workspace", error.response);
+    console.log("error in deleting workspace", error.response.data);
     throw error.response;
   }
 };
 
-export const updateWorkspaceRequest = ({ workspaceId, name, token }) => {
+export const updateWorkspaceRequest = async({ workspaceId, name, token }) => {
   try {
-    const updatedWorkspace = axios.put(
+    const updatedWorkspace = await  axios.put(
       `/api/v1/workspaces/${workspaceId}`,
       { name },
       {
