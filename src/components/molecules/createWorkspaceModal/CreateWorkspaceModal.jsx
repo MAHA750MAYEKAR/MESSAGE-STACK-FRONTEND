@@ -34,8 +34,7 @@ export const CreateWorkspaceModal = () => {
         console.log('successfully created workspace in modal', workspaceCreated.data);
         
         const Workspace = workspaceCreated.data;
-        console.log('workspace',Workspace);
-        
+        console.log('workspace',Workspace);        
          navigate(`/workspaces/${Workspace._id}`);
          
          

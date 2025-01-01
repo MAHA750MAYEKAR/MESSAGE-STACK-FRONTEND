@@ -11,8 +11,10 @@ import {
   DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
 import { useFetchWorkspace } from '@/hooks/workspace/useFetchWorkspace';
 import { useFetchWorkspaceById } from '@/hooks/workspace/useFetchWorkspaceById';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const WorkspaceSwitcher = () => {
+   const queryClient = useQueryClient();
    const navigate=useNavigate();
    const { workspaceId } = useParams();
    const { isFetching, workspace } = useFetchWorkspaceById(workspaceId);
@@ -52,7 +54,10 @@ export const WorkspaceSwitcher = () => {
              return (
                <DropdownMenuItem
                  key={workspace._id}
-                 onClick={() => navigate(`/workspaces/${workspace._id}`)}
+                 onClick={() => {
+                  queryClient.invalidateQueries("fetchWorkspaces");
+                   navigate(`/workspaces/${workspace._id}`);
+                 }}
                >
                  {workspace.name}
                </DropdownMenuItem>

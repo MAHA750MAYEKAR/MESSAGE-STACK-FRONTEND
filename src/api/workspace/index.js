@@ -10,7 +10,7 @@ export const createWorkspacerequest = async ({ name, description, token }) => {
         },
       }
     );
-    console.log("response created in create workspace", response);
+    //console.log("response created in create workspace", response);
 
     return response.data;
   } catch (error) {
@@ -31,8 +31,8 @@ export const fetchWorkspaceRequest = async ({ token }) => {
       "successfully fetched all the workspces user in memmber",
       response
     );
-    console.log("response.data", response.data);
-    console.log("response.data.data", response.data.data);
+    //console.log("response.data", response.data);
+    //console.log("response.data.data", response.data.data);
     return response?.data?.data;
   } catch (error) {
     console.log("Error in fetching Workspace", error);
@@ -47,7 +47,7 @@ export const fetchWorkspaceByIdRequest = async ({ workspaceId, token }) => {
         "x-access-token": token,
       },
     });
-    console.log("succsess in fetching workspace by id", response?.data?.data);
+   console.log("succsess in fetching workspace by id", response?.data?.data);
 
     return response?.data?.data;
   } catch (error) {
@@ -64,8 +64,8 @@ export const deleteWorkspaceByIdRequest = async ({ workspaceId, token }) => {
       },
     });
 
-    console.log("response of deleted workspace", deletedWorkspace);
-    console.log("response of deleted workspace==>", deletedWorkspace?.data);
+    //console.log("response of deleted workspace", deletedWorkspace);
+    //console.log("response of deleted workspace==>", deletedWorkspace?.data);
     return deletedWorkspace?.data;
   } catch (error) {
     console.log("error in deleting workspace", error.response.data);
@@ -84,11 +84,11 @@ export const updateWorkspaceRequest = async({ workspaceId, name, token }) => {
         },
       }
     );
-    console.log("successfully updated workspace", updatedWorkspace);
-    console.log("successfully updated workspace", updatedWorkspace.response);
-    return updatedWorkspace.response;
+    //console.log("successfully updated workspace", updatedWorkspace.data);
+    
+    return updatedWorkspace.data;
   } catch (error) {
-    console.log("error in updating workspace", error.response);
-    throw error.response;
+    console.log("error in updating workspace", error.response.data);
+    throw error.response.data;
   }
 };

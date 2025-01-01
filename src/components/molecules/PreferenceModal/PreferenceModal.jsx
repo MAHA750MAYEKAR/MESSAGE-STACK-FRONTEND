@@ -4,8 +4,12 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
+  DialogTrigger,
   DialogTitle,
+  DialogFooter,
+  DialogClose,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { FaPen } from "react-icons/fa6";
 import { usePreferencesModal } from "@/hooks/context/usePreferencesModal";
@@ -15,20 +19,26 @@ import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Input } from "@/components/ui/input";
+import { useUpdateWorkspace } from "@/hooks/workspace/useUpdateWorkspace";
 
 export const PreferenceModal = () => {
-  const [workspaceId, setWorkspaceId] = useState();
+  const [renameWorkspace, setRenameWorkspace] = useState();
+  const [editOpen, setEditOpen] = useState(false);
+  const [workspaceId, setWorkspaceId] = useState(null);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { openPreferences, setOpenPreferences, initialValue, workspace } =
     usePreferencesModal();
- // console.log("workspace......", workspace);
-
+  // console.log("workspace......", workspace);
+  const { isPending, updateWorkspaceMutation } =
+    useUpdateWorkspace(workspaceId);
   useEffect(() => {
     setWorkspaceId(workspace?._id);
+    setRenameWorkspace(workspace?.name);
   }, [workspace]);
 
-  const { deleteWorkspaceMutation } = useDeleteWorkspace(workspaceId); 
+  const { deleteWorkspaceMutation } = useDeleteWorkspace(workspaceId);
   const { toast } = useToast();
 
   function handleOnOpenChange() {
@@ -37,9 +47,11 @@ export const PreferenceModal = () => {
 
   async function handleDeleteWorkspace() {
     try {
+      if (isPending) return;
       await deleteWorkspaceMutation();
-      navigate("/home"); //home page has home component which re triggers fetching of remaining ws after deletion
       queryClient.invalidateQueries("fetchWorkspaces");
+      navigate("/home"); //home page has home component which re triggers fetching of remaining ws after deletion
+
       setOpenPreferences(false);
 
       console.log("deleted workspace");
@@ -52,7 +64,27 @@ export const PreferenceModal = () => {
         title: "Error in deleting workspace",
         type: "error",
       });
-    console.log("failed in deleting workspace");
+      console.log("failed in deleting workspace");
+    }
+  }
+
+  async function handleFormSubmit(e) {
+    e.preventDefault();
+    try {
+      await updateWorkspaceMutation({ name: renameWorkspace });
+      queryClient.invalidateQueries(`fetchWorkspaceById-${workspace?._id}`);
+
+      setOpenPreferences(false);
+      toast({
+        title: "Workspace updated successfully",
+        type: "success",
+      });
+    } catch (error) {
+      console.log("Error in updating workspace", error);
+      toast({
+        title: "Error in updating workspace",
+        type: "error",
+      });
     }
   }
   return (
@@ -61,23 +93,56 @@ export const PreferenceModal = () => {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Edit Your Workspace</DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="text-red-600">
               This action cannot be undone. This will permanently delete your
               workspace and remove your data from our servers.
             </DialogDescription>
           </DialogHeader>
-          <div className="px-4 pb-4 flex flex-col gap-y-2">
-            <div className="px-5 py-4 bg-white rounded-lg border cursor-pointer hover:bg-gray-50 ">
-              <p className="font-xs mb-2">-Your Workspace Name</p>
-              <Separator />
-              <div className="flex items-center justify-between">
-                <p className="font-semibold text-sm pl-2 pt-2 flex gap-3 mt-2">
-                  <FaPen className="mt-1" />
-                  {initialValue}
-                </p>
-                <p className="text-sm font-semibold hover:underline">Edit</p>
+
+          <Dialog open={editOpen} onOpenChange={setEditOpen}>
+            <DialogTrigger>
+              <div className="px-5 py-4 bg-white rounded-lg border cursor-pointer hover:bg-gray-50 ">
+                <p className="font-xs mb-2">-Your Workspace Name</p>
+                <Separator />
+                <div className="flex items-center justify-between">
+                  <p className="font-semibold text-sm pl-2 pt-2 flex gap-3 mt-2">
+                    <FaPen className="mt-1" />
+                    {initialValue}
+                  </p>
+                  <p className="text-sm font-semibold hover:underline">Edit</p>
+                </div>
               </div>
-            </div>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Rename Your Workspace</DialogTitle>
+              </DialogHeader>
+              <form className="space-4" onSubmit={handleFormSubmit}>
+                <Input
+                  className="h-10 mt-1"
+                  required
+                  value={renameWorkspace}
+                  onChange={(e) => setRenameWorkspace(e.target.value)}
+                  minLength={3}
+                  autoFocus
+                  disabled={isPending}
+                  placeholder={initialValue}
+                />
+                <DialogFooter className="p-4 ">
+                  <DialogClose>
+                    <Button variant="outline" disabled={isPending}>
+                      Cancel
+                    </Button>
+                  </DialogClose>
+                  <Button type="submit" disabled={isPending}>
+                    Save
+                  </Button>
+                </DialogFooter>
+              </form>
+            </DialogContent>
+          </Dialog>
+
+          <div className="px-4 pb-4 flex flex-col gap-y-2">
             <button
               className="flex items-center gap-x-2 px-5 py-4 bg-white rounded-lg border cursor-pointer hover:bg-gray-50"
               onClick={handleDeleteWorkspace}

@@ -9,7 +9,7 @@ export const useUpdateWorkspace = (workspaceId ) => {
     error,
     mutateAsync: updateWorkspaceMutation,
   } = useMutation({
-    mutationFn: () =>
+    mutationFn: ({name}) =>
       updateWorkspaceRequest({ workspaceId, name, token: auth?.token }),
     onSuccess: () => {
       console.log("successfully updated workspace");
