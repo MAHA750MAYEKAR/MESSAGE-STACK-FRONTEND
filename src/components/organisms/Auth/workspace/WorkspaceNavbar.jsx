@@ -1,15 +1,23 @@
 import { InfoIcon } from 'lucide-react';
 import { Search } from 'lucide-react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
+import { useCurrentWorkspace } from '@/hooks/context/useCurrentWorkspace';
 import { useFetchWorkspaceById } from '@/hooks/workspace/useFetchWorkspaceById';
 
 export const WorkspaceNavbar = () => {
-   
+   const {setCurrentWorkspace}=useCurrentWorkspace();
    const { workspaceId } = useParams();
    const { workspace, isFetching } = useFetchWorkspaceById(workspaceId);
-   if (isFetching) {
+      useEffect(() => {
+        if (workspace) {
+          setCurrentWorkspace(workspace);
+        }
+      }, [workspace, setCurrentWorkspace]);
+  
+  if (isFetching) {
       return (
         <div className="h-[40px]">
           <h1>Loading...</h1>
