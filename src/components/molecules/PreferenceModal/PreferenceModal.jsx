@@ -1,26 +1,27 @@
-import { TrashIcon } from "lucide-react";
+import { useQueryClient } from '@tanstack/react-query';
+import { TrashIcon } from 'lucide-react';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { FaPen } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
+
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogHeader,
-  DialogTrigger,
-  DialogTitle,
   DialogFooter,
-  DialogClose,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { FaPen } from "react-icons/fa6";
-import { usePreferencesModal } from "@/hooks/context/usePreferencesModal";
-import { useDeleteWorkspace } from "@/hooks/workspace/useDeleteWorkspace";
-import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
-import { useEffect } from "react";
-import { Input } from "@/components/ui/input";
-import { useUpdateWorkspace } from "@/hooks/workspace/useUpdateWorkspace";
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
+import { usePreferencesModal } from '@/hooks/context/usePreferencesModal';
+import { useToast } from '@/hooks/use-toast';
+import { useDeleteWorkspace } from '@/hooks/workspace/useDeleteWorkspace';
+import { useUpdateWorkspace } from '@/hooks/workspace/useUpdateWorkspace';
 
 export const PreferenceModal = () => {
   const [renameWorkspace, setRenameWorkspace] = useState();
@@ -49,22 +50,22 @@ export const PreferenceModal = () => {
     try {
       if (isPending) return;
       await deleteWorkspaceMutation();
-      queryClient.invalidateQueries("fetchWorkspaces");
-      navigate("/home"); //home page has home component which re triggers fetching of remaining ws after deletion
+      queryClient.invalidateQueries('fetchWorkspaces');
+      navigate('/home'); //home page has home component which re triggers fetching of remaining ws after deletion
 
       setOpenPreferences(false);
 
-      console.log("deleted workspace");
+      console.log('deleted workspace');
       toast({
-        title: "Workspace deleted successfully",
-        type: "success",
+        title: 'Workspace deleted successfully',
+        type: 'success',
       });
     } catch (error) {
       toast({
-        title: "Error in deleting workspace",
-        type: "error",
+        title: 'Error in deleting workspace',
+        type: 'error',
       });
-      console.log("failed in deleting workspace");
+      console.log('failed in deleting workspace');
     }
   }
 
@@ -76,14 +77,14 @@ export const PreferenceModal = () => {
 
       setOpenPreferences(false);
       toast({
-        title: "Workspace updated successfully",
-        type: "success",
+        title: 'Workspace updated successfully',
+        type: 'success',
       });
     } catch (error) {
-      console.log("Error in updating workspace", error);
+      console.log('Error in updating workspace', error);
       toast({
-        title: "Error in updating workspace",
-        type: "error",
+        title: 'Error in updating workspace',
+        type: 'error',
       });
     }
   }

@@ -1,6 +1,8 @@
-import { useMutation } from "@tanstack/react-query";
-import { updateWorkspaceRequest } from "@/api/workspace";
-import { useAuth } from "../context/useAuth";
+import { useMutation } from '@tanstack/react-query';
+
+import { updateWorkspaceRequest } from '@/api/workspace';
+
+import { useAuth } from '../context/useAuth';
 export const useUpdateWorkspace = (workspaceId ) => {
   const { auth } = useAuth();
   const {
@@ -12,10 +14,10 @@ export const useUpdateWorkspace = (workspaceId ) => {
     mutationFn: ({name}) =>
       updateWorkspaceRequest({ workspaceId, name, token: auth?.token }),
     onSuccess: () => {
-      console.log("successfully updated workspace");
+      console.log('successfully updated workspace');
     },
     onError: () => {
-      console.log("error in updating workspace");
+      console.log('error in updating workspace');
     },
   });
 

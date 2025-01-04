@@ -1,8 +1,8 @@
-import { ListFilterIcon, SquarePenIcon } from "lucide-react";
-import { useEffect } from "react";
-import { FaChevronDown } from "react-icons/fa";
+import { ListFilterIcon, SquarePenIcon } from 'lucide-react';
+import { useEffect } from 'react';
+import { FaChevronDown } from 'react-icons/fa';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,23 +10,23 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useAuth } from "@/hooks/context/useAuth";
-import { usePreferencesModal } from "@/hooks/context/usePreferencesModal"
+} from '@/components/ui/dropdown-menu';
+import { useAuth } from '@/hooks/context/useAuth';
+import { usePreferencesModal } from '@/hooks/context/usePreferencesModal';
 
 
 export const WorkspacePanelHeader = ({ workspace }) => {
   const { auth } = useAuth();
   //console.log("workspace in panel header",workspace);
-  const {setWorkspace}=usePreferencesModal()
+  const {setWorkspace}=usePreferencesModal();
   const { setOpenPreferences, setInitialValue } = usePreferencesModal();
   const isUserAdminOfWorkspace = workspace.members.find(
-    (member) => member.memberId === auth?.user?._id && member.role === "admin"
+    (member) => member.memberId._id === auth?.user?._id && member.role === 'admin'
   );
 
   useEffect(() => {
-  setWorkspace(workspace)//
-},[])
+  setWorkspace(workspace);//
+},[]);
 
   return (
     <div className="w-full flex  items-center  bg-slate-400  hover:bg-slate-400/80 gap-5 justify-between">
@@ -35,8 +35,8 @@ export const WorkspacePanelHeader = ({ workspace }) => {
         <DropdownMenuTrigger className="flex justify-center items-center w-full">
           <Button
             className="m-2 text-wrap overflow-hidden font-bold p-1 text-[18px]  bg-slate-400 w-full "
-            size={"lg"}
-            variant={"ghost"}
+            size={'lg'}
+            variant={'ghost'}
           >
             {workspace?.name}
             <FaChevronDown />
@@ -62,7 +62,7 @@ export const WorkspacePanelHeader = ({ workspace }) => {
                 className="w-full"
                 onClick={() => {
                   setOpenPreferences(true);
-                  setInitialValue(workspace?.name)
+                  setInitialValue(workspace?.name);
                 }}
               >
                 Preferences

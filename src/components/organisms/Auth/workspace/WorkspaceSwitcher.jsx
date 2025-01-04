@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { Loader } from 'lucide-react';
 import { VscCheckAll } from 'react-icons/vsc';
 import { useNavigate,useParams } from 'react-router-dom';
@@ -11,7 +12,6 @@ import {
   DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
 import { useFetchWorkspace } from '@/hooks/workspace/useFetchWorkspace';
 import { useFetchWorkspaceById } from '@/hooks/workspace/useFetchWorkspaceById';
-import { useQueryClient } from '@tanstack/react-query';
 
 export const WorkspaceSwitcher = () => {
    const queryClient = useQueryClient();
@@ -55,7 +55,7 @@ export const WorkspaceSwitcher = () => {
                <DropdownMenuItem
                  key={workspace._id}
                  onClick={() => {
-                  queryClient.invalidateQueries("fetchWorkspaces");
+                  queryClient.invalidateQueries('fetchWorkspaces');
                    navigate(`/workspaces/${workspace._id}`);
                  }}
                >
