@@ -10,7 +10,7 @@ export const Home = () => {
   const navigate = useNavigate();
   const { setOpenWorkspaceModal } = useCreateWorkspaceModal();
   useEffect(() => {
-        if (isFetching) return;
+    if (isFetching) return;
     console.log('workspaces in home page', workspaces);
 
     if (workspaces.length === 0 || !workspaces) {
@@ -19,7 +19,7 @@ export const Home = () => {
     } else {
       navigate(`/workspaces/${workspaces[0]._id}`);
     }
-  }, [isFetching, workspaces, navigate]);
+  }, [isFetching, workspaces, navigate, setOpenWorkspaceModal]);
 
   return (
     <>

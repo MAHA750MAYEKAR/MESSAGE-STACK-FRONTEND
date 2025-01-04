@@ -26,7 +26,7 @@ export const WorkspacePanelHeader = ({ workspace }) => {
 
   useEffect(() => {
   setWorkspace(workspace);//
-},[]);
+},[setWorkspace,workspace]);
 
   return (
     <div className="w-full flex  items-center  bg-slate-400  hover:bg-slate-400/80 gap-5 justify-between">

@@ -15,7 +15,7 @@ export const SideBarItems = ({
     return (
       <>
         <Link to={`/workspaces/${workspaceId}/channels/${channelId}`}>
-          <Button className="w-full p-1" >
+          <Button className="w-full p-1 flex justify-start pl-2 hover:opacity-85 " >
             <Icon />
             <span>{label}</span>
           </Button>
