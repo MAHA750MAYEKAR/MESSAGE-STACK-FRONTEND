@@ -1,11 +1,26 @@
 import VerificationInput from "react-verification-input";
 
+import { usejoinWorkspaceByJoincode } from "@/hooks/workspace/useJoinWorkspaceByJoincode";
+import { useParams } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 export const JoinPage = () => {
-    async function handleAddMemberToWorkspace() {
-       console.log("adding member");
-       
-        
-    }
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const { workspaceId } = useParams();
+  const { joinUsingJoincodeMutation } = usejoinWorkspaceByJoincode();
+  async function handleAddMemberToWorkspace(joinCode) {
+    console.log("adding member");
+    await joinUsingJoincodeMutation({ workspaceId, joinCode });
+
+    navigate(`/workspaces/${workspaceId}`);
+    toast({
+      title: "You have been added to workspace successfully",
+      type: "success",
+    });
+
+    console.log("added member successfully");
+  }
   return (
     <>
       <div className="flex justify-center items-center h-screen bg-slate-300/50">

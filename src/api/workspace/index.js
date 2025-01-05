@@ -112,3 +112,43 @@ export const addChannelToWorkspceRequest = async ({workspaceId,token,channelname
     throw error.response;
   }
 };
+
+
+export const addMemberToWorkspaceRequest = async({workspaceId,token}) => {
+  try {
+    const response = await axios.put(`/api/v1/workspaces/${workspaceId}/members`, {
+      headers: {
+        "x-access-token":token
+      }
+    })
+    console.log("added member to ws", response.data.data);
+    return response?.data?.data;
+    
+    
+  } catch (error) {
+    console.log('error in adding member to workspace',error.response);
+    
+    throw error.response;
+    
+  }
+}
+
+
+export const joinWorkspaceByJoincodeRequest = async ({workspaceId,joinCode,token}) => {
+  try {
+    const response = await axios.put(`/api/v1/workspaces/${workspaceId}/join`, { joinCode }, {
+      headers: {
+      "x-access-token":token
+      }
+    })
+    console.log("member joined workspace using joincode", response.data.data);
+    return response?.data?.data;
+    
+    
+  } catch (error) {
+    console.log('error in joining workspace by joincode',error.response);
+    
+    throw error.response;
+    
+  }
+}
