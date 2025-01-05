@@ -6,63 +6,79 @@ import { WorkspacePanelHeader } from '@/components/molecules/WorkspacePanalHeade
 import { WorkspacePanelSection } from '@/components/molecules/WorkspacePanalHeader/WorkspacePanelSection';
 import { useCreateChannelModal } from '@/hooks/context/useCreateChannelModal';
 import { useFetchWorkspaceById } from '@/hooks/workspace/useFetchWorkspaceById';
-
+import { UserItem } from '@/components/atom/UserItem/UserItem';
 
 export const WorkspacePanel = () => {
   const { setChannelModal } = useCreateChannelModal();
-   const { workspaceId } = useParams();
-   const { isFetching, isSuccess, workspace } = useFetchWorkspaceById(workspaceId);
-   
-   if (isFetching) {
-      return (
-        <div className="flex justify-center items-center h-full w-full">
-          <Loader className="animate-spin delay-75 size-10 text-black" />
-        </div>
-      );
-   }
+  const { workspaceId } = useParams();
+  const { isFetching, isSuccess, workspace } = useFetchWorkspaceById(workspaceId);
 
-   if (!isSuccess) {
-     return (
-       <div className="flex justify-center items-center h-full w-full">
-         <AlertTriangleIcon className="size-6 text-black" />
-         <span className="p-2">Something went wrong</span>
-       </div>
-     );
-   }
-   
+  if (isFetching) {
+    return (
+      <div className="flex justify-center items-center h-full w-full">
+        <Loader className="animate-spin delay-75 size-10 text-black" />
+      </div>
+    );
+  }
 
-   return (
-     <div>
-       <WorkspacePanelHeader workspace={workspace} />
-       <div className="flex flex-col px-2 mt-3 gap-2">
-         <SideBarItems
-           label="Threads"
-           icon={MessageSquareCodeIcon}
-           id="threads"
-           variant="active"
-         />
-         <SideBarItems
-           label="Drafts & Sends"
-           icon={SendHorizonalIcon}
-           id="drafts"
-           variant="default"
-         />
-       </div>
-       <WorkspacePanelSection
-         label={'Channels'}
-         onIconClick={() => setChannelModal(true)}
-       >
-         {workspace?.channels?.map((channel) => {
-           return (
-             <SideBarItems
-               key={channel.channelId}
-               label={channel.name}
-               channelId={channel.channelId}
-               icon={HashIcon}
-             />
-           );
-         })}
-       </WorkspacePanelSection>
-     </div>
-   );
+  if (!isSuccess) {
+    return (
+      <div className="flex justify-center items-center h-full w-full">
+        <AlertTriangleIcon className="size-6 text-black" />
+        <span className="p-2">Something went wrong</span>
+      </div>
+    );
+  }
+
+
+  return (
+    <div>
+      <WorkspacePanelHeader workspace={workspace} />
+      <div className="flex flex-col px-2 mt-3 gap-2">
+        <SideBarItems
+          label="Threads"
+          icon={MessageSquareCodeIcon}
+          id="threads"
+          variant="active"
+        />
+        <SideBarItems
+          label="Drafts & Sends"
+          icon={SendHorizonalIcon}
+          id="drafts"
+          variant="default"
+        />
+      </div>
+      <WorkspacePanelSection
+        label={"Channels"}
+        onIconClick={() => setChannelModal(true)}
+      >
+        {workspace?.channels?.map((channel) => {
+          return (
+            <SideBarItems
+              key={channel.channelId}
+              label={channel.name}
+              channelId={channel.channelId}
+              icon={HashIcon}
+            />
+          );
+        })}
+      </WorkspacePanelSection>
+      <WorkspacePanelSection
+        label={"Direct Messages"}
+        //onIconClick={() => }
+      >
+        {workspace?.members?.map((member) => {
+          
+          return (
+            <UserItem
+              key={member.memberId._id}
+              id={member.memberId._id}
+              img={member.memberId.avatar}
+              username={member.memberId.username}
+            />
+          );
+        })}
+      </WorkspacePanelSection>
+    </div>
+  );
 };
