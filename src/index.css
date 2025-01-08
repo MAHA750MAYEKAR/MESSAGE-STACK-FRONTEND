@@ -117,3 +117,28 @@
     @apply bg-background text-foreground;
   }
 }
+/* Custom Toolbar Styles */
+.ql-toolbar {
+  background-color: #eaeef2 !important; 
+  padding: 10px; 
+}
+
+ .ql-toolbar .ql-formats {
+  border-right: 1px solid #a4a4a4; 
+  padding-right: 10px; 
+}
+.ql-container {
+  background-color: #fffafa;  
+  padding: 5px   !important; 
+         
+}
+.ql-editor {
+  
+  font-size: 16px!important;            
+   font-family: sans-serif!important;           
+}
+.ql-editor a {
+  
+  color: blue!important;            
+   font-family: sans-serif!important;            
+}

@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import Quill from "quill";
+import "quill/dist/quill.snow.css";
 export const Editor = () => {
   const [text, setText] = useState("");
   const [isToolbarVisible, setIsToolbarVisible] = useState(false);
@@ -55,9 +56,9 @@ export const Editor = () => {
   }, []);
 
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-col border border-slate-300 rounded focus-within:shadow-sm m-2  overflow-hidden p-1 transition focus-within:">
-        <div ref={containerRef}>Editor</div>
+    <div className="flex flex-col ml-2 mr-2 mb-1">
+      <div className="flex flex-col border border-slate-300 rounded-lg focus-within:shadow-sm m-2  overflow-hidden p-1 transition focus-within: ">
+        <div className="bg-slate-50" ref={containerRef} />
       </div>
     </div>
   );
