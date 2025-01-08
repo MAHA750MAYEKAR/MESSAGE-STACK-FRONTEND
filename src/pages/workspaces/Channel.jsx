@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useFetchChannelById } from "@/hooks/channels/useFetchChannelById";
 import { LucideLoader2 } from "lucide-react";
 import { TriangleAlert } from "lucide-react";
+import { ChatInput } from '@/components/molecules/ChatInput/ChatInput';
 export const Channel = () => {
   const { channelId } = useParams();
   const { error, isFetching, channel } = useFetchChannelById(channelId);
@@ -25,9 +26,10 @@ export const Channel = () => {
   }
 
   return (
-    <div>
-      Channel {channelId}
-      {channel.name}
+    <div className='flex flex-col h-full'>
+      <div className='flex-1'/>
+        <ChatInput/>
+     
     </div>
   );
 };
