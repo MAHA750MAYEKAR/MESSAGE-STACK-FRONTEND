@@ -1,10 +1,7 @@
-import { useState, useRef, useEffect } from "react";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
-export const Editor = ({onSubmit}) => {
-  const [text, setText] = useState("");
-  const [isToolbarVisible, setIsToolbarVisible] = useState(false);
-
+import { useEffect, useRef } from "react";
+export const Editor = ({ onSubmit }) => {
   const containerRef = useRef(); // reqd to initialize the editor
   const submitRef = useRef();
   const disabledRef = useRef();
@@ -34,10 +31,10 @@ export const Editor = ({onSubmit}) => {
             enter: {
               key: "Enter",
               handler: () => {
-                return onSubmit({
+                onSubmit({
                   body: JSON.stringify(quillRef.current?.getContents()),
                 });
-                
+                quillRef.current?.setText("");
               },
             },
             shift_enter: {

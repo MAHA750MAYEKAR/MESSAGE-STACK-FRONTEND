@@ -4,11 +4,22 @@ import { LucideLoader2 } from "lucide-react";
 import { TriangleAlert } from "lucide-react";
 import { ChatInput } from '@/components/molecules/ChatInput/ChatInput';
 import { ChannelHeader } from '@/components/molecules/channelHeader/ChannelHeader';
+import { useSocket } from '@/hooks/context/useSocket';
+import { useEffect } from 'react';
 export const Channel = () => {
+  const { joinChannel } = useSocket();
   const { channelId } = useParams();
   const { error, isFetching, channel } = useFetchChannelById(channelId);
-  console.log("channel details", channel);
+ 
   // console.log("===>",channel.name);
+
+  useEffect(() => {
+    if (!isFetching && !error) {
+      //console.log("channel id inside socket",channelId);
+      
+      joinChannel(channelId)
+    }
+  },[isFetching,error,channelId,joinChannel])
 
   if (isFetching) {
     return (
@@ -25,7 +36,7 @@ export const Channel = () => {
       </div>
     );
   }
-
+ console.log("channel details", channel);
   return (
     <div className="flex flex-col h-full">
       <ChannelHeader channelName={channel.name} />

@@ -1,9 +1,26 @@
 import { Editor } from "@/components/atom/Editor/Editor";
+import { useAuth } from "@/hooks/context/useAuth";
+import { useCurrentWorkspace } from "@/hooks/context/useCurrentWorkspace";
+import { useSocket } from "@/hooks/context/useSocket";
 
 export const ChatInput = () => {
-  async function handleSubmit({body}) {
+  const { currentWorkspace } = useCurrentWorkspace();
+  const { socket, currentChannel } = useSocket();
+  const { auth } = useAuth();
+  async function handleSubmit({ body }) {
     console.log("body", body);
-    
+    socket?.emit(
+      "NewMessage",
+      {
+        channelId: currentChannel,
+        body,
+        senderID: auth?.user?._id,
+        workspaceId: currentWorkspace?._id,
+      },
+      (data) => {
+        console.log("message sent", data);
+      }
+    );
   }
   return (
     <div>
@@ -12,7 +29,6 @@ export const ChatInput = () => {
         onSubmit={handleSubmit}
         onCancel={() => {}}
         disabled={false}
-        
       />
     </div>
   );
