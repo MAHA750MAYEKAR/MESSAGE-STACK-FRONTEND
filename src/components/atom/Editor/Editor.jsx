@@ -49,7 +49,7 @@ export const Editor = () => {
       },
     };
 
-    const quill = new Quill(editorContainer, options);
+    const quill = new Quill(container, options);
     quillRef.current = quill;
     quillRef.current.focus();
     quill.setContents(defaultValueRef.current);
